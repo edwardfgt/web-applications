@@ -22,7 +22,10 @@ describe Application do
   context "GET /albums" do
     it "returns all albums" do
       response = get('/albums')
-      expect(response.body).to include('Ring Ring')
+      expect(response.status).to eq(200)
+      expect(response.body).to include ('<h1>Albums</h1>')
+      expect(response.body).to include ('Title: Surfer Rosa')
+      expect(response.body).to include ('Released: 1988')                            
     end
   end
 

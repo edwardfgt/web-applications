@@ -16,9 +16,9 @@ class Application < Sinatra::Base
 
   get '/albums' do
     repo = AlbumRepository.new
-    return repo.all
+    @albums = repo.all
+    return erb(:albums)    
   end
-
 
   post '/albums' do
     repo = AlbumRepository.new
