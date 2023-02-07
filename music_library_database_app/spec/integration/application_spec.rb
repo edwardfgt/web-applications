@@ -57,4 +57,12 @@ describe Application do
       expect(response.body).to include("Joji")
     end
   end
+
+  context "GET /artists/:id" do
+    it "returns html containing artist information" do
+      response = get('/artists/2')
+      expect(response.body).to include ('ABBA')
+      expect(response.body).to include ('Pop')
+    end
+  end
 end
