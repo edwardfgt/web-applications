@@ -10,6 +10,15 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context "GET /albums/:id" do
+    it "returns html containing album information" do
+      response = get('/albums/1')
+      expect(response.body).to include ('Doolittle')
+      expect(response.body).to include ('Release year: 1989')
+      expect(response.body).to include ('Artist: Pixies')
+    end
+  end
+
   context "GET /albums" do
     it "returns all albums" do
       response = get('/albums')

@@ -41,4 +41,17 @@ class Application < Sinatra::Base
     new_artist.genre = params[:genre]
     repo.create(new_artist)
   end
+
+  get "/albums/:id" do
+    @id = params[:id]
+    repo = AlbumRepository.new
+    artrepo = ArtistRepository.new
+    foundalbum = repo.find(@id)
+    @title = foundalbum.title
+    @release_year = foundalbum.release_year
+    @artist_id = foundalbum.artist_id 
+    artist_object = artrepo.find(@artist_id)
+    @artist = artist_object.name
+    return erb(:index)
+  end
 end
