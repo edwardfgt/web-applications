@@ -10,6 +10,15 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+  context "GET /albums/new" do
+    it "returns the page with form" do
+      response = get('/albums/new')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Add an album</h1>')
+      expect(response.body).to include('<form action="/albums" method="POST">')
+    end
+  end
+
   context "GET /albums/:id" do
     it "returns html containing album information" do
       response = get('/albums/1')
@@ -55,8 +64,19 @@ describe Application do
     it 'returns 200 OK' do
       response = post('/artists', name: 'Joji', genre: 'R&B')
       expect(response.status).to eq(200)
+      get_response = get('/artists')
+      expect(get_response.body).to include("Joji")
+    end
+
+    it "creates a new artist and redirects to the artists page" do
+      response = post(
+        "/artists",
+        name: "Erik Satie",
+        genre: "classical"
+      )
+      expect(response.status).to eq(200)
       response = get('/artists')
-      expect(response.body).to include("Joji")
+      expect(response.body).to include("Erik Satie")
     end
   end
 
@@ -74,20 +94,6 @@ describe Application do
       response = get('/artists/2')
       expect(response.body).to include ('ABBA')
       expect(response.body).to include ('Pop')
-    end
-  end
-
-  context "POST /artists" do
-    it "returns a success page" do
-
-      response = post(
-        "/artists",
-        name: "Erik Satie",
-        genre: "classical"
-      )
-      expect(response.status).to eq(200)
-      response = get('/artists')
-      expect(response.body).to include("Erik Satie")
     end
   end
 end
