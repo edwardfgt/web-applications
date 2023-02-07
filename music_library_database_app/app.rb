@@ -31,7 +31,8 @@ class Application < Sinatra::Base
 
   get '/artists' do
     repo = ArtistRepository.new
-    return repo.all
+    @artists = repo.all
+    return erb(:artists)
   end
 
   post '/artists' do

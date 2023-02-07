@@ -44,8 +44,10 @@ describe Application do
     it "returns all artists" do
       response = get('/artists')
       expect(response.body).to include('ABBA')
-      expect(response.body).to include('pop')
-      expect(response.body).to include('Mac Miller')
+      expect(response.body).to include('Genre: Pop')
+      expect(response.body).to include('Taylor Swift')
+      expect(response.body).to include('<a href="/artists/1')
+      expect(response.body).to include('<a href="/artists/3')
     end
   end
 
