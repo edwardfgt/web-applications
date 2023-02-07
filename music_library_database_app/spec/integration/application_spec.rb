@@ -20,12 +20,14 @@ describe Application do
   end
 
   context "GET /albums" do
-    it "returns all albums" do
+    it "returns all albums and links to individual albums" do
       response = get('/albums')
       expect(response.status).to eq(200)
       expect(response.body).to include ('<h1>Albums</h1>')
       expect(response.body).to include ('Title: Surfer Rosa')
-      expect(response.body).to include ('Released: 1988')                            
+      expect(response.body).to include ('Released: 1988')  
+      expect(response.body).to include ('<a href="/albums/3')
+      expect(response.body).to include ('<a href="/albums/6')
     end
   end
 
