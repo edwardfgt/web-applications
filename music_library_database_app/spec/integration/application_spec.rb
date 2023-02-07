@@ -60,11 +60,34 @@ describe Application do
     end
   end
 
+  context "GET /artists/new" do
+    it "returns the page with form" do
+      response = get('/artists/new')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Add an artist</h1>')
+      expect(response.body).to include('<form action="/artists" method="POST">')
+    end
+  end
+
   context "GET /artists/:id" do
     it "returns html containing artist information" do
       response = get('/artists/2')
       expect(response.body).to include ('ABBA')
       expect(response.body).to include ('Pop')
+    end
+  end
+
+  context "POST /artists" do
+    it "returns a success page" do
+
+      response = post(
+        "/artists",
+        name: "Erik Satie",
+        genre: "classical"
+      )
+      expect(response.status).to eq(200)
+      response = get('/artists')
+      expect(response.body).to include("Erik Satie")
     end
   end
 end
