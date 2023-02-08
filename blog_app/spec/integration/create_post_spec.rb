@@ -14,7 +14,6 @@ describe Application do
     context 'GET /' do
       it 'should get the form to add a new post' do
         response = get('/')
-
         expect(response.status).to eq(200)
         expect(response.body).to include('<form method="post" action="/posts">')
         expect(response.body).to include('<input type="text" name="title" />')

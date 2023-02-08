@@ -29,7 +29,6 @@ describe Application do
   context 'GET /tag/:tag' do
     it 'displays the posts tagged with cooking' do
       response = get('/tag/cooking')
-
       expect(response.body).to include('Test cooking post')
       expect(response.body).to_not include('Test programming post')
     end
